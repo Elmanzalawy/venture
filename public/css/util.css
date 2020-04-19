@@ -1,0 +1,82 @@
+/*SCROLLBAR*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background:lavender;
+    border-left: 1px solid #999;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:var(--primary-color);
+}
+/* Handle on hover */
+
+.primary-color{
+  color: var(--primary-color);
+}
+.secondary-color{
+  color: var(--secondary-color);
+}
+/*LOADER.PHP*/
+.loader{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translateX(-50%) translateY(-50%); */
+  border: 5px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  border-left-color: var(--primary-color);
+  animation: spin 1s infinite linear reverse;
+  z-index: 1100;
+}
+@keyframes spin{
+  0%{transform: rotateZ(360deg)};
+  100%{transform: rotateZ(360deg)};
+
+}
+/*BUTTONS*/
+.btn-primary{
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+ .btn-outline-primary{
+   color: var(--primary-color);
+   border-color: var(--primary-color);
+ }
+.btn-outline-primary:hover{
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+.btn-outline-info{
+  background-color: var(--secondary-color) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+.btn-outline-info:hover{
+  background-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+/*misc. elements*/
+hr{
+  border-color: var(--primary-color) !important;
+}
+a{
+  color: var(--primary-color);
+}
+.center{
+  align-items: center;
+}
+.bg-none{
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.alert{
+  margin-top:56px !important;
+}
