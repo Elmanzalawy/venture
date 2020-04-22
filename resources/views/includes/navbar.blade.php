@@ -14,11 +14,6 @@
         <a class="nav-link" href="{{ url('/about') }}">About Us</a>
       </li>
 
-      @if(!Auth::guest())
-      <li class="nav-item">
-      <a href="#" class="nav-link contact-us" data-toggle="modal" data-target="#contact-us-modal">Contact Us</a>
-      </li>
-      @endif
     
     </ul>
     <!-- Right Side Of Navbar -->

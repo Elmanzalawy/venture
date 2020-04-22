@@ -20,7 +20,10 @@ Route::get('/index', function () {
     return view('index');
 });
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('home');
 
 // POSTS ROUTES
 Route::resource('posts','PostsController');
+//COMMENTS ROUTES
+Route::put('comments/{id}','CommentsController@store');
+// Route::resource('comments','CommentsController');

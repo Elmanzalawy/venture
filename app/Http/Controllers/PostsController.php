@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 class PostsController extends Controller
 {
     /**
@@ -88,7 +89,11 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'post' => Post::find($id),
+            'comments' => Comment::where('post_id',$id)->get()
+        );
+        return view('posts.show')->with($data);
     }
 
     /**
