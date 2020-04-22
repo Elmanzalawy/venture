@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Comment;
 class PostsController extends Controller
@@ -14,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at','desc')->paginate(5);
+        $posts = Post::orderBy('created_at','desc')->paginate(6);
         return view('posts.index')->with('posts',$posts);
     }
 
@@ -43,7 +44,6 @@ class PostsController extends Controller
         if (Auth::check()) {
             $this->validate($request, [
                 'title'=>'required',
-                'text'=>'required',
                 'image'=> 'image|nullable|max:10000'
             ]);
             //handle file upload
@@ -127,6 +127,21 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $comments = Comment::where('post_id',$id);
+        if(auth()->user()->privilege=='admin' || auth()->user()->id==$post->user_id){
+        //if exists, delete post image
+            if($post->image!='placeholder-image.jpg'){
+                unlink('storage/post_images/'.$post->image);
+            }
+            if(isset($comments)){
+                $comments->delete();
+                $post->delete();
+            }
+
+            return redirect('posts')->with('success','Successfully deleted post.');
+        }else{
+            return back()->with('error','Unauthorized user.');
+        }        
     }
 }

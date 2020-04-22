@@ -21,9 +21,11 @@ Route::get('/index', function () {
 });
 Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('home');
-
+Route::get('/home', 'HomeController@index')->name('home');
 // POSTS ROUTES
 Route::resource('posts','PostsController');
+Route::delete('posts/delete/{id}','PostsController@destroy');
 //COMMENTS ROUTES
-Route::put('comments/{id}','CommentsController@store');
 // Route::resource('comments','CommentsController');
+Route::put('comments/{id}','CommentsController@store');
+Route::delete('comments/delete/{id}','CommentsController@destroy');

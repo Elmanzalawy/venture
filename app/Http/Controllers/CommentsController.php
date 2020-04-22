@@ -86,6 +86,12 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        if(auth()->user()->privilege=='admin' || auth()->user()->id==$comment->user_id){
+            $comment->delete();
+            return back()->with('success','Successfully Deleted Comment');
+        }else{
+            return back()->with('error','Unauthorized user.');
+        }        
     }
 }
