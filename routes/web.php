@@ -28,4 +28,5 @@ Route::delete('posts/delete/{id}','PostsController@destroy');
 //COMMENTS ROUTES
 // Route::resource('comments','CommentsController');
 Route::put('comments/{id}','CommentsController@store');
+Route::put('comments/reply/{id}','CommentsController@storeReply');
 Route::delete('comments/delete/{id}','CommentsController@destroy');

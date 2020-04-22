@@ -17,6 +17,8 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('post_id');
+            $table->integer('parent_comment_id')->nullable(); //id of parent comment (used for replies)
+            $table->string('type')->default('comment'); //type: comment or reply
             $table->text('text');
             $table->integer('votes')->default(0);
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Comment;
 use App\Post;
+use DB;
 class CommentsController extends Controller
 {
     /**
@@ -39,11 +40,25 @@ class CommentsController extends Controller
         $comment->user_id = auth()->user()->id;
         $comment->post_id = $id;
         $comment->text = $request->text;
+        $comment->type = 'comment';
         $comment->save();
 
         return back()->with('success','Comment created');
     }
+    //Reply to existing comments
+    public function storeReply(Request $request, $id)
+    {
+        $comment = new Comment;
+        $post = Post::find(DB::table('comments')->where('id',$id)->value('post_id'));
+        $comment->user_id = auth()->user()->id;
+        $comment->post_id = $post->id;
+        $comment->text = $request->text;
+        $comment->parent_comment_id = $id;
+        $comment->type = 'reply';
+        $comment->save();
 
+        return back()->with('success','Comment created');
+    }
     /**
      * Display the specified resource.
      *

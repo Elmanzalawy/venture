@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{config('app.name','SHD')}}</title>
+<title>{{config('app.name','Venture')}}</title>
 
 {{-- loading custom css from assets --}}
 <link rel="shortcut icon" href="{{ url('images/logo-icon.png') }}">
@@ -25,9 +25,7 @@ font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="{{ asset('js/custom.js') }}?<?php echo time(); ?>"></script>
 <script type="text/javascript" src="{{ asset('js/examArchive.js') }}?<?php echo time(); ?>"></script>
 
-{{-- <link rel="stylesheet" href="{{asset('css/style.css')}}"> --}}
-<!--facebook feed plugin-->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
 
 </head>
 <body>

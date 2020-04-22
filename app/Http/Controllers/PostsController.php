@@ -91,7 +91,8 @@ class PostsController extends Controller
     {
         $data = array(
             'post' => Post::find($id),
-            'comments' => Comment::where('post_id',$id)->get()
+            'comments' => Comment::where('post_id',$id)->where('type','comment')->get(),
+            'replies' => Comment::where('post_id',$id)->where('type','reply')->get(),
         );
         return view('posts.show')->with($data);
     }
