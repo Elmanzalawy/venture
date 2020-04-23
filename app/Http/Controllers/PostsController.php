@@ -105,7 +105,15 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        if (Auth::check()) {
+            if(auth()->user()->id == $post->user_id){
+                return view('posts.edit')->with('post',$post);
+            }else{
+                return view('posts.index')->with('error','Unauthorized user.');
+            }
+        }
+        
     }
 
     /**
@@ -117,7 +125,43 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post =Post::find($id);
+        if (Auth::check()) {
+            //handle file upload
+            $filenameToStore = $post->image;
+            if($request->hasFile('image')){
+                //Get file name with extentsion
+                $filenameWithExt = $request->file('image')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                //Get just extension
+                $extension = $request->file('image')->getClientOriginalExtension();
+                //Filename to store
+                $filenameToStore = $filename."_".time().".".$extension; // making the filename unique to prpost image overwriting
+
+                //Upload image
+                $path = $request->file('image')->storeAs('public/post_images',$filenameToStore);
+
+            }
+            else{
+                // $fileNameToStore = "placeholder-image.png";
+            }
+            //if post image is changed, delete the previous image from storage
+            if($post->image != $filenameToStore && $post->image != 'placeholder-image.png'){
+                unlink('storage/post_images/'.$post->image);
+            }
+
+            //edit post
+            $post->user_id = auth()->user()->id;
+            $post->image = $filenameToStore;
+            $post->title = $request->input('title') ?? $post->title;
+            $post->text = $request->input('text') ?? $post->text;
+
+            $post->save();
+            return redirect('posts/'.$id)->with('success','Post edited.');
+        }else{
+            return redirect('login')->with('error','Error editing post.');
+        }
     }
 
     /**
@@ -132,7 +176,7 @@ class PostsController extends Controller
         $comments = Comment::where('post_id',$id);
         if(auth()->user()->privilege=='admin' || auth()->user()->id==$post->user_id){
         //if exists, delete post image
-            if($post->image!='placeholder-image.jpg'){
+            if($post->image !== 'placeholder-image.jpg'){
                 unlink('storage/post_images/'.$post->image);
             }
             if(isset($comments)){

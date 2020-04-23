@@ -22,7 +22,7 @@
                         <h4 class="center" style="align-self:flex-start">{{$post->title}}</h4>
                       </div>
                       <p class="p-2 card-text" style="color:var(--secondary-color);">{{$post->text}}</p>
-                      <div class="card-footer py-1" style="align-self:flex-end; width:100%;">
+                      <div class="card-footer py-1" style="align-self:flex-start; width:100%;">
                         <p class="small" style="margin-top:0.75em; color:var(--secondary-color);">Posted on {{$post->created_at}} by {{DB::table('users')->where('id',$post->user_id)->value('name')}}</p>
                       </div>
                   </div>

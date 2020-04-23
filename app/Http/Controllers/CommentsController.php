@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Comment;
 use App\Post;
@@ -48,6 +48,10 @@ class CommentsController extends Controller
     //Reply to existing comments
     public function storeReply(Request $request, $id)
     {
+        if (Auth::check()) {
+            $this->validate($request, [
+                'text'=>'required',
+            ]);
         $comment = new Comment;
         $post = Post::find(DB::table('comments')->where('id',$id)->value('post_id'));
         $comment->user_id = auth()->user()->id;
@@ -58,6 +62,9 @@ class CommentsController extends Controller
         $comment->save();
 
         return back()->with('success','Comment created');
+        }else{
+            return view('posts/index')->with('error','Unauthorized user.');
+        }
     }
     /**
      * Display the specified resource.
@@ -78,7 +85,7 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -90,7 +97,14 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+       if(auth()->user()->id == $comment->user_id){
+        $comment->text = $request->text;
+        $comment->save();
+        return back()->with('success','Comment edited.');
+       }else{
+        return redirect('posts.index')->with('error','Unauthorized user.');
+       }
     }
 
     /**

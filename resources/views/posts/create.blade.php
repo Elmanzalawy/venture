@@ -19,7 +19,7 @@
                     {{Form::label('Add image: ','Add image (Optional)')}}
                     {{Form::file('image')}}
             </div>
-            <a href="{{url('posts/create')}}" class="btn btn-danger my-2">Cancel</a>
+            <a href="{{url('posts')}}" class="btn btn-danger my-2">Cancel</a>
 
             {{Form::submit('Create Post',['class'=>'btn btn-primary my-2'])}}
         {{ Form::close() }}
