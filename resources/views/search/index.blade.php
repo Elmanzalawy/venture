@@ -6,8 +6,7 @@
 </style>
 <div class="container">
     <div class="jumbotron">
-        <h1 class="center">Posts</h1>
-        <a href="{{url('posts/create')}}" class="btn btn-outline-primary my-2">Create Post</a>
+        <h1 class="center">Search Results</h1>
         @if(count($posts)>0)
         @foreach ($posts as $post)
         <a href="{{url('posts/'.$post->id)}}" style="text-decoration:none !important;">
@@ -40,8 +39,10 @@
         </a>
         @endforeach
         @else
-        <p class="center">No posts found.</p>
+        <p class="center">No results found.</p>
         @endif
+
+        
     </div>
 </div>
 

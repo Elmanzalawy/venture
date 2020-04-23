@@ -33,3 +33,6 @@ Route::put('comments/{id}','CommentsController@store');
 Route::put('comments/reply/{id}','CommentsController@storeReply');
 Route::delete('comments/delete/{id}','CommentsController@destroy');
 Route::put('comments/update/{id}','CommentsController@update');
+
+//SEARCH ROUTE
+Route::get('search','SearchController@search');

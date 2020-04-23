@@ -16,6 +16,7 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('user_name');
             $table->integer('post_id');
             $table->integer('parent_comment_id')->nullable(); //id of parent comment (used for replies)
             $table->string('type')->default('comment'); //type: comment or reply

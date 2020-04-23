@@ -191,7 +191,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {{ Form::open(['action' => ['CommentsController@update',$comment->id],'class'=>'edit-comment-form', 'method'=>'POST', 'enctype'=>'multipart/form-data']) }}
+                        {{ Form::open(['action' => ['CommentsController@update',1],'class'=>'edit-comment-form', 'method'=>'POST', 'enctype'=>'multipart/form-data']) }}
 
                         <div class="form-group">
                             {{Form::label('text','Edit as '.auth()->user()->name)}}

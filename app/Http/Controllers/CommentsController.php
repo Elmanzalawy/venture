@@ -38,6 +38,7 @@ class CommentsController extends Controller
     {
         $comment = new Comment;
         $comment->user_id = auth()->user()->id;
+        $comment->user_name = auth()->user()->name;
         $comment->post_id = $id;
         $comment->text = $request->text;
         $comment->type = 'comment';
@@ -55,6 +56,7 @@ class CommentsController extends Controller
         $comment = new Comment;
         $post = Post::find(DB::table('comments')->where('id',$id)->value('post_id'));
         $comment->user_id = auth()->user()->id;
+        $comment->user_name = auth()->user()->name;
         $comment->post_id = $post->id;
         $comment->text = $request->text;
         $comment->parent_comment_id = $id;

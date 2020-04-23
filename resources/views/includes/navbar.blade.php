@@ -18,6 +18,13 @@
     </ul>
     <!-- Right Side Of Navbar -->
     <ul class="navbar-nav ml-auto">
+            {!! Form::open(['action' => 'SearchController@search', 'class'=>'form-inline','method'=>'GET']) !!}
+
+            {!! Form::text('query','', ['class'=>'form-control mr-sm-2 ml-2', 'placeholder'=>'Search posts...', 'autofill'=>'disabled']) !!}
+            {!! Form::submit('Search',['class'=>'btn btn-outline-primary my-2 my-sm-0']) !!}
+            
+            {!! Form::close() !!}
+            
       <!-- Authentication Links -->
       @guest
           <li class="nav-item">
