@@ -4,21 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Vote extends Model
 {
+    protected $table = 'votes';
+
     protected $fillable = [
-        'title',
-        'link',
-        'text',
-        'image',
-        'subreddit_id'
+        'value',
+        'post_id',
+        'user_id'
     ];
 
     public function user() {
         return $this->belongsTo('App\User');
     }
 
-    public function votes() {
-        return $this->hasMany('App\Vote');
+    public function posts() {
+        return $this->belongsTo('App\Post');
     }
 }

@@ -11,7 +11,7 @@
       </li>
     <!--ABOUT US-->
         <li class="nav-item">
-        <a class="nav-link" href="{{ url('/about') }}">About Us</a>
+        <a class="nav-link" href="{{ url('/about') }}">About {{config('app.name','Venture')}}</a>
       </li>
 
     

@@ -22,11 +22,15 @@ Route::get('/index', function () {
 Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/about', function(){
+    return view('about');
+});
 // POSTS ROUTES
 Route::resource('posts','PostsController');
 Route::delete('posts/delete/{id}','PostsController@destroy');
 Route::get('posts/edit/{id}','PostsController@edit');
 Route::put('posts/update/{id}','PostsController@update');
+
 //COMMENTS ROUTES
 // Route::resource('comments','CommentsController');
 Route::put('comments/{id}','CommentsController@store');
@@ -36,3 +40,6 @@ Route::put('comments/update/{id}','CommentsController@update');
 
 //SEARCH ROUTE
 Route::get('search','SearchController@search');
+
+//VOTE ROUTES
+Route::post('/vote','VotesController@store');

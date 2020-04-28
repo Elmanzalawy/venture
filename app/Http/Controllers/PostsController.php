@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Comment;
+use App\Vote;
+
 class PostsController extends Controller
 {
     /**
@@ -13,9 +16,13 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
-        $posts = Post::orderBy('created_at','desc')->paginate(6);
+        $posts = Post::orderBy('created_at','desc')->paginate(5);
         return view('posts.index')->with('posts',$posts);
     }
 
@@ -72,6 +79,9 @@ class PostsController extends Controller
             $post->image = $filenameToStore;
             $post->title = $request->input('title');
             $post->text = $request->input('text');
+            // $post->likes_history = array(
+            //     'key'=>'value'
+            // );
 
             $post->save();
 
@@ -90,10 +100,13 @@ class PostsController extends Controller
      */
     public function show($id)
     {
+        $post = Post::find($id);
         $data = array(
-            'post' => Post::find($id),
+            'post' => $post,
             'comments' => Comment::where('post_id',$id)->where('type','comment')->get(),
             'replies' => Comment::where('post_id',$id)->where('type','reply')->get(),
+            'votes'=> Vote::where('post_id',$id)->where('value',1)->count() - Vote::where('post_id',$id)->where('value',-1)->count(),
+            'user_vote' => Vote::where('post_id',$id)->where('user_id',$post->user_id)->value('value'),
         );
         return view('posts.show')->with($data);
     }
@@ -175,6 +188,7 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $comments = Comment::where('post_id',$id);
+        $votes = Vote::where('post_id',$id);
         if(auth()->user()->privilege=='admin' || auth()->user()->id==$post->user_id){
         //if exists, delete post image
             if($post->image !== 'placeholder-image.jpg'){
@@ -183,6 +197,7 @@ class PostsController extends Controller
             if(isset($comments)){
                 $comments->delete();
                 $post->delete();
+                $votes->delete();
             }
 
             return redirect('posts')->with('success','Successfully deleted post.');
