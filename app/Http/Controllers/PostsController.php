@@ -124,7 +124,7 @@ class PostsController extends Controller
             if(auth()->user()->id == $post->user_id){
                 return view('posts.edit')->with('post',$post);
             }else{
-                return view('posts.index')->with('error','Unauthorized user.');
+                return redirect('posts/index')->with('error','Unauthorized user.');
             }
         }
         

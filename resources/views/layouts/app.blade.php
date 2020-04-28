@@ -22,6 +22,7 @@ font-awesome/4.7.0/css/font-awesome.min.css">
 <!--Custom CSS-->
 <link rel="stylesheet" href={{ asset('css/style.css') }}?<?php echo time(); ?>">
 <link rel="stylesheet" href="{{ asset('css/util.css') }}?<?php echo time(); ?>">
+<link rel="stylesheet" href="{{ asset('css/background.css') }}?<?php echo time(); ?>">
 <!--custom JS-->
 
 

@@ -62,7 +62,6 @@ h1,h2,h3,h4,h5,h6{
 
 /*STAGE*/
 #stage{
-    background:url("../images/19377.jpg")center no-repeat !important;
     background-size: cover !important;
     padding:auto;
     background-attachment: fixed !important;
@@ -70,6 +69,11 @@ h1,h2,h3,h4,h5,h6{
     display: flex;
     text-align: center;
     align-items: center;
+    z-index: 900;
+    transform: translateX(-50%);
+    left: 50%;
+    min-width: 100%;
+    position: fixed;
 
 }
 .stage-caption{

@@ -11,7 +11,7 @@
       </li>
     <!--ABOUT US-->
         <li class="nav-item">
-        <a class="nav-link" href="{{ url('/about') }}">About {{config('app.name','Venture')}}</a>
+        <a class="nav-link" href="{{ url('/about') }}">About</a>
       </li>
 
     
@@ -47,7 +47,7 @@
                                    document.getElementById('logout-form').submit();">
                       {{ __('Logout') }}
                   </a>
-                  <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>
+                  <a class="dropdown-item" href="{{ url('/index') }}">Home</a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
